@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\PostRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StorePostRequest extends FormRequest
 {
@@ -13,7 +15,7 @@ class StorePostRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return Auth::check();
     }
 
     /**
@@ -26,7 +28,8 @@ class StorePostRequest extends FormRequest
         return [
             "title"=>"required|min:5|unique:posts",
             "description"=>"required",
-            "user_id"=>"required"
+            "user_id"=>"required",
+            "numberPosts"=>new PostRule
         ];
     }
 }

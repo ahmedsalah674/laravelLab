@@ -1,7 +1,9 @@
 @extends('layouts.app')
 @section('content')
+{{-- <div class="text-danger">{{ $errors }}</div> --}}
     <div class="container py-5">
         <form action="{{ route('posts.store') }}" method="post">
+            <input type="hidden" value="{{count(Auth::user()->post)}}" name="numberPosts" />
             {{-- enctype="multipart/form-data" --}}
             @csrf
             <div class="mb-3">

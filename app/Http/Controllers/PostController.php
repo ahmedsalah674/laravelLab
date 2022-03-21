@@ -55,6 +55,7 @@ class PostController extends Controller
     }
     public function update(UpdatePostRequest $request, Post $post)
     {
+        $this->authorize("isMyPost",$post);
         $request->validate([]);
         // $updatedpost = Post::find($post);
         $post->title = $request->title;
@@ -68,6 +69,7 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         // dd($post);
+        $this->authorize("isMyPost",$post);
         if($post->user_id!=Auth::user()->id)
             abort(401);
         $post->delete();
